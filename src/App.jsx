@@ -3,42 +3,61 @@ import { useState,useEffect } from "react";
 
 
 export default function App() {
-// const [todos, setTodos] = useState([]);
+
 
 const [posts, setPosts] = useState([]);
 
 
-// Fetching dei dati
-// function fetchTodos() {
-// axios.get("https://jsonplaceholder.typicode.com/todos")
-// .then((res) => setTodos(res.data))
-// }
 
 function fetchPost() {
   axios
-    .get("http://localhost:3000/api/posts")
-    .then((res) => setPosts(res.data))
+    .get("http://localhost:3000/api/posts").then((res) => setPosts(res.data).catch(err => console.error(err)))
 }
 
 
 
-useEffect(fetchPost, [])
+useEffect( () => fetchPost, [])  
 
 
 return (
-    <div>
-      {/* <ul>
-        {todos.map((todo) => (
-        <li key={todo.id}>{todo.title}</li>
-))}
-      </ul> */}
-
-
-      <ul>
+  <>
+    
+    <div className="container">
+    <h1 >fetch posts</h1>  
+      {/* /* <ul>
         {posts.map((element) => (
         <li key={element.id}>{element.title}</li>
 ))}
-      </ul>
+      </ul> */ }
+
+      <div className="table-responsive">
+        <table className="table table-primary">
+          <thead>
+            <tr>
+              <th scope="col">Id</th>
+              <th scope="col">Title</th>
+              <th scope="col">Immage</th>
+            </tr>
+          </thead>
+          <tbody>
+            
+            {
+              posts.map((elem) =>{
+                return(
+                  <tr key={elem.id}>
+                    <td>{elem.id}</td>
+                    <td>{elem.title}</td>
+                    <td>{elem.image}</td>
+                  </tr>
+                 )              
+             
+              })
+                 
+            }
+          </tbody>
+        </table>
+      </div>
      </div>
-);
+  </>
+);  
 }
