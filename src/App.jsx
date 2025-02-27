@@ -22,7 +22,7 @@ useEffect( () => fetchPost, [])
 return (
   <>
     
-    <div className="container">
+    <div className="container"> 
     <h1 >fetch posts</h1>  
       {/* /* <ul>
         {posts.map((element) => (
