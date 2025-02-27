@@ -11,9 +11,13 @@ const [posts, setPosts] = useState([]);
 
 function fetchPost() {
   axios
-    .get("http://localhost:3000/api/posts").then((res) => setPosts(res.data).catch(err => console.error(err)))
+    .get("http://localhost:3000/api/posts")
 }
 
+const handleDelete = (idSingoloPost) => {
+  axios
+  .delete( `http://localhost:3000/api/posts/${idSingoloPost}` ).then(setPosts(posts.filter(elem => elem.id !== idSingoloPost)))
+}
 
 
 useEffect( () => fetchPost, [])  
@@ -22,7 +26,7 @@ useEffect( () => fetchPost, [])
 return (
   <>
     
-    <div className="container"> 
+    <div className="container">  
     <h1 >fetch posts</h1>  
       {/* /* <ul>
         {posts.map((element) => (
@@ -44,11 +48,19 @@ return (
             {
               posts.map((elem) =>{
                 return(
+                  <>
                   <tr key={elem.id}>
                     <td>{elem.id}</td>
                     <td>{elem.title}</td>
                     <td>{elem.image}</td>
+                    <td>
+                    <button className="btn btn-danger " onClick={() => handleDelete(elem.id)}>
+                      x
+                    </button>                      
+                    </td>
+
                   </tr>
+                  </>
                  )              
              
               })
@@ -61,3 +73,5 @@ return (
   </>
 );  
 }
+
+
